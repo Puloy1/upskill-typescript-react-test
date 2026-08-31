@@ -1,0 +1,40 @@
+.employee-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.employee-card__content {
+  min-width: 0;
+}
+
+.employee-card h2 {
+  margin: 0 0 8px;
+}
+
+.employee-card p {
+  margin: 4px 0;
+}
+
+.employee-card button {
+  flex-shrink: 0;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .employee-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .employee-card button {
+    width: 100%;
+  }
+}
