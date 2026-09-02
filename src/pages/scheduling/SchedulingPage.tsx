@@ -1,4 +1,4 @@
-import { ShiftAssignment } from "../../features/shift-assignment"
+// import { ShiftAssignment } from "../../features/shift-assignment"
 
 export function SchedulingPage() {
   return (
@@ -8,7 +8,7 @@ export function SchedulingPage() {
       <p>
         Manage employee schedules and shifts.
       </p>
-      <ShiftAssignment />
+      {/* <ShiftAssignment employeeId={0}   onShiftAssigned={}/> */}
     </main>
   )
 }

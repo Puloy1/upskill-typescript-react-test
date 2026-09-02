@@ -1,1 +1,1 @@
-export { ShiftAssignment } from './ShiftAssignment'
+export { ShiftAssignment } from './ui/ShiftAssignment'
