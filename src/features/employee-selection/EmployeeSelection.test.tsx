@@ -2,12 +2,13 @@ import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
 import { EmployeeSelection } from './EmployeeSelection'
+
 import userEvent from '@testing-library/user-event'
 const user = userEvent.setup()
 
 describe('EmployeeSelection', () => {
   it('displays an empty state when no employees are available', () => {
-    render(<EmployeeSelection employees={[]}/>)
+    render(<EmployeeSelection employees={[]}  onShiftAssigned={() => {}} />)
 
     expect(
       screen.getByText('No employees available.')
@@ -29,6 +30,7 @@ it('displays an employee after loading', async () => {
   render(
     <EmployeeSelection
       employees={employees}
+      onShiftAssigned={() => {}}
     />
   )
 

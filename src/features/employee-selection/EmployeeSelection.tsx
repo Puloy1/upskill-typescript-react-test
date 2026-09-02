@@ -1,5 +1,9 @@
 import { useState } from 'react'
 
+import type { Shift } from '../../entities/shift'
+
+import { ShiftAssignment } from '../shift-assignment'
+
 import {
   EmployeeCard,
   type Employee,
@@ -7,10 +11,12 @@ import {
 
 type EmployeeSelectionProps = {
   employees: Employee[]
+  onShiftAssigned: (shift: Shift) => void
 }
 
 export function EmployeeSelection({
-  employees
+  employees,
+  onShiftAssigned
 }: EmployeeSelectionProps) {
   const [employee, setEmployee] = useState<Employee | null>(null)
 
@@ -42,9 +48,16 @@ export function EmployeeSelection({
   }
 
   return (
-    <EmployeeCard
-      employee={employee}
-      onSelect={handleSelect}
-    />
+    <>
+      <EmployeeCard
+        employee={employee}
+        onSelect={handleSelect}
+      />
+
+      <ShiftAssignment
+        employeeId={employee.id}
+        onShiftAssigned={onShiftAssigned}
+      />
+    </>
   )
 }
