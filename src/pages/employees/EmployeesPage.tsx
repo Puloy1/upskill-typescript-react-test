@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 import {
   getEmployees,
-  simulateEmployeeAdded,
+  // simulateEmployeeAdded,
   type Employee
 } from '../../entities/employee'
 
