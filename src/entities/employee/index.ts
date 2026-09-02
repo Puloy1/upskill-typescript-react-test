@@ -17,4 +17,4 @@ export type {
   EmployeeListResponse,
 } from './api/employee.api.types'
 
-export { getEmployees } from './api/getEmployees'
+export { getEmployees, simulateEmployeeAdded } from './api/getEmployees'

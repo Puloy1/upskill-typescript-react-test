@@ -11,6 +11,8 @@ export function simulateEmployeeAdded() {
     department: 'Engineering',
     status: 'active',
   })
+
+  console.log('Server employees', serverEmployees)
 }
 
 export function getEmployees(
