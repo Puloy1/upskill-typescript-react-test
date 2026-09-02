@@ -1,6 +1,20 @@
 import type { Employee } from '../model/employee.types'
 import { employees } from '../model/employee.mock'
 
+const serverEmployees = [...employees]
+
+export function simulateEmployeeAdded() {
+  serverEmployees.push({
+    id: 11,
+    name: 'New Employee',
+    email: 'new.employee@example.com',
+    department: 'Engineering',
+    status: 'active',
+  })
+
+  console.log('Server employees', serverEmployees)
+}
+
 export function getEmployees(
   shouldFail = false
 ): Promise<Employee[]> {
@@ -13,8 +27,7 @@ export function getEmployees(
         return
       }
 
-      resolve(employees)
-    //   resolve([])
+      resolve(serverEmployees)
     }, 1000)
   })
 }

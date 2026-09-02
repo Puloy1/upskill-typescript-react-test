@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 
 import {
   getEmployees,
+  // simulateEmployeeAdded,
   type Employee
 } from '../../entities/employee'
 
@@ -83,6 +84,20 @@ export function EmployeesPage() {
         employees={employees}
         onShiftAssigned={handleShiftAssigned}
       />
+
+      {/* <button
+        type="button"
+        onClick={simulateEmployeeAdded}
+      >
+        Simulate Server Update
+      </button> */}
+
+      <button
+        type="button"
+        onClick={() => loadEmployees(false)}
+      >
+        Refresh Employees
+      </button>
 
       {schedule.length > 0 && (
         <section>
