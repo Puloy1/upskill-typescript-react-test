@@ -5,6 +5,8 @@ import { createShift } from '../../../entities/shift'
 
 import type { Shift } from "../../../entities/shift";
 
+import { checkAvailability } from "../../../entities/availability"
+
 type ShiftAssignmentProps = {
   employeeId: number
   onShiftAssigned: (shift: Shift) => void
@@ -20,13 +22,28 @@ export function ShiftAssignment({
   const [isAssigning, setIsAssigning] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [isUnavailable, setIsUnavailable] = useState(false)
 
-  const handleAssign = () => {
+  const handleAssign = async () => {
     setIsAssigning(true)
     setIsSuccess(false)
     setError(null)
+    setIsUnavailable(false)
 
-    createShift({
+    const result = await checkAvailability({
+      employeeId,
+      date,
+      startTime,
+      endTime,
+    })
+    console.log('haha')
+    if (!result.available) {
+      setIsUnavailable(true)
+      setIsAssigning(false)
+      return
+    }
+    console.log('error', error)
+    await createShift({
       employeeId,
       date,
       startTime,
@@ -109,6 +126,12 @@ export function ShiftAssignment({
       {isSuccess && (
         <p>
           Employee assigned successfully.
+        </p>
+      )}
+
+      {isUnavailable && (
+        <p>
+          Employee is unavailable for this shift.
         </p>
       )}
 
