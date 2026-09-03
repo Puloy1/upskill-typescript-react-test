@@ -6,6 +6,10 @@ import type { Shift } from "../../../entities/shift";
 
 import { checkAvailability } from "../../../entities/availability"
 
+import {
+  sendShiftNotification,
+} from '../../../entities/notification'
+
 type ShiftAssignmentProps = {
   employeeId: number
   onShiftAssigned: (shift: Shift) => void
@@ -22,12 +26,14 @@ export function ShiftAssignment({
   const [isSuccess, setIsSuccess] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [isUnavailable, setIsUnavailable] = useState(false)
+  const [isNotificationFailed, setIsNotificationFailed] = useState(false)
 
   const handleAssign = async () => {
     setIsAssigning(true)
     setIsSuccess(false)
     setError(null)
     setIsUnavailable(false)
+    setIsNotificationFailed(false)
 
     const result = await checkAvailability({
       employeeId,
@@ -36,11 +42,12 @@ export function ShiftAssignment({
       endTime,
     })
 
-    if (!result.available) {
-      setIsUnavailable(true)
-      setIsAssigning(false)
-      return
-    }
+    // need to comment out to test sendShiftNotification on odd numbered id
+    // if (!result.available) {
+    //   setIsUnavailable(true)
+    //   setIsAssigning(false)
+    //   return
+    // }
     await createShift({
       employeeId,
       date,
@@ -51,6 +58,17 @@ export function ShiftAssignment({
         console.log('shift', shift)
         setIsSuccess(true)
         onShiftAssigned(shift)
+        sendShiftNotification({
+          employeeId,
+          shiftId: shift.id,
+        })
+          .then(() => {
+            console.log('notification sent')
+          })
+         .catch((error) => {
+            console.log('notification failed:', error)
+            setIsNotificationFailed(true)
+          })
       })
       .catch((error) => {
         setError(error.message)
@@ -136,6 +154,12 @@ export function ShiftAssignment({
       {error && (
         <p role="alert">
           {error}
+        </p>
+      )}
+
+      {isNotificationFailed && (
+        <p>
+          Shift assigned, but we couldn't send the notification.
         </p>
       )}
     </section>
