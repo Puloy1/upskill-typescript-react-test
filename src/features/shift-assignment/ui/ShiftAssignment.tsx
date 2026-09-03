@@ -1,4 +1,3 @@
-
 import { useState } from 'react'
 
 import { createShift } from '../../../entities/shift'
@@ -36,13 +35,12 @@ export function ShiftAssignment({
       startTime,
       endTime,
     })
-    console.log('haha')
+
     if (!result.available) {
       setIsUnavailable(true)
       setIsAssigning(false)
       return
     }
-    console.log('error', error)
     await createShift({
       employeeId,
       date,
