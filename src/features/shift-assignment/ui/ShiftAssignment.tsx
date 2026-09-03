@@ -4,7 +4,7 @@ import { createShift } from '../../../entities/shift'
 
 import type { Shift } from "../../../entities/shift";
 
-import { checkAvailability } from "../../../entities/availability"
+// import { checkAvailability } from "../../../entities/availability"
 
 import {
   sendShiftNotification,
@@ -35,12 +35,12 @@ export function ShiftAssignment({
     setIsUnavailable(false)
     setIsNotificationFailed(false)
 
-    const result = await checkAvailability({
-      employeeId,
-      date,
-      startTime,
-      endTime,
-    })
+    // const result = await checkAvailability({
+    //   employeeId,
+    //   date,
+    //   startTime,
+    //   endTime,
+    // })
 
     // need to comment out to test sendShiftNotification on odd numbered id
     // if (!result.available) {
